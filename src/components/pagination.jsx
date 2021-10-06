@@ -1,52 +1,43 @@
-import React, { Component } from "react";
-import _ from "lodash";
+import React, { Component } from 'react';
+import _ from 'lodash';
 
-export default class Pagination extends Component {
+class Pagination extends Component {
   render() {
     const { totalItems, pageCount, activePage, onClickPage } = this.props;
-    const totalPages = Math.ceil(totalItems / pageCount + 1);
-    const pages = _.range(1, totalPages, 1);
+
+    const totalPages = Math.ceil(totalItems / pageCount)+1;
+
+    const pages = _.range(1, totalPages, 1); // [1, 2, 3, 4]
+
+    if(totalItems <= pageCount) return null;
 
     return (
-      <>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
+        <nav aria-label="Page navigation example d-flex flex-wrap">
+          <ul className="pagination">
             <li
-              class="page-item"
-              onClick={() =>
-                activePage - 1 <= 1 ? onClickPage(activePage - 1) : null
-              }
+                className="page-item"
+                onClick={() => activePage-1 >= 1 ? onClickPage(activePage-1) : null}
             >
-              <a class="page-link" href="#">
-                Previous
-              </a>
+              <a className="page-link" style={{cursor: 'pointer'}}>Previous</a>
             </li>
-            {pages.map((page) => (
-              <li
-                class={activePage === page ? "page-item active" : "page-item"}
-                onClick={() => onClickPage(page)}
-              >
-                <a class="page-link" href="#">
-                  {page}
-                </a>
-              </li>
-            ))}
-
+            {pages.map(page => (
+                <li
+                    className={activePage === page ? "page-item active" : "page-item"}
+                    onClick={() => onClickPage(page)}
+                >
+                  <a className="page-link" style={{cursor: 'pointer'}}>{page}</a>
+                </li>)
+            )}
             <li
-              class="page-item"
-              onClick={() =>
-                activePage + 1 <= totalPages - 1
-                  ? onClickPage(activePage + 1)
-                  : null
-              }
+                className="page-item"
+                onClick={() => activePage+1 <= totalPages-1 ? onClickPage(activePage+1) : null}
             >
-              <a class="page-link" href="#">
-                Next
-              </a>
+              <a className="page-link" style={{cursor: 'pointer'}}>Next</a>
             </li>
           </ul>
         </nav>
-      </>
     );
   }
 }
+
+export default Pagination;

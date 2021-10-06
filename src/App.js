@@ -4,6 +4,7 @@ import Navbar from "./components/navbar";
 import LogIn from "./components/login";
 import SignUp from "./components/signup";
 import { Route, Switch } from "react-router-dom";
+import MovieForm from "./components/MovieForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/movies" component={Movies} />
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
+          <Route path="/add-movies" component={MovieForm} />
         <Route path="/" component={Movies} />
       </Switch>
     </div>
